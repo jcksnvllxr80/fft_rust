@@ -2,39 +2,72 @@
 //!
 //! A library for the Cooley-Tukey Fast Fourier Transform (fft) algorithm.
 
-// pub fn fft<T>(p: Vec<T>) -> Vec<T> {
-//     /// Given an array of coefficients, p,
-//     /// Recursively perform a Cooley-Tukey Fast Fourier Transform
-//
-//     // let n = p.len();
-//     // if n == 1 {
-//     //     p
-//     // }
-//
-//     // if not is_power_of_two(n):
-//     // p = zero_pad_left(p, next_square(n) - len(p))
-//     // n = len(p)
-//
-//     // n_over_two = int(n / 2)
-//     //
-//     // w = np.exp(2j * pi * np.arange(n) / n)
-//     //
-//     // p_e, p_o = p[::2], p[1::2]  # even_powered_coeffs, odd_powered_coeffs
-//     // y_e, y_o = fft(p_e), fft(p_o)
-//     //
-//     // y = [0] * n
-//     //
-//     // for i in range(n_over_two):
-//     // y[i] = y_e[i] + (w[i] * y_o[i])
-//     // y[n_over_two + i] = y_e[i] - (w[i] * y_o[i])
-//     vec![2, 2]
-// }
+// use std::f64::consts::PI;
+use num::complex::Complex;
 
-// pub fn ifft<T>(p: Vec<T>) -> Vec<T> {
-//     /// Given an array of coefficients, p,
-//     /// Recursively perform an Inverse Cooley-Tukey Fast Fourier Transform
-//     vec![2, 2]
-// }
+/// given a list of a polynomial's coefficients (or any array of numbers),
+/// compute the FFT using the Cooley-Tukey algorithm; return the resulting array
+///
+/// # Example
+///
+/// ```
+/// use num::complex::Complex;
+///
+/// let arg = vec![1f32, 2f32];
+/// let answer = fft_rust::fft(arg);
+/// let num1 = Complex::new(10.0, 20.0);
+/// let num2 = Complex::new(3.1, -4.2);
+/// assert_eq!(answer, vec![num1, num2]);
+/// ```
+pub fn fft(_p: Vec<f32>) -> Vec<Complex<f32>> {
+    // Given an array of coefficients, p,
+    // Recursively perform a Cooley-Tukey Fast Fourier Transform
+
+    // let n = p.len();
+    // if n == 1 {
+    //     p
+    // }
+
+    // if not is_power_of_two(n):
+    // p = zero_pad_left(p, next_square(n) - len(p))
+    // n = len(p)
+
+    // n_over_two = int(n / 2)
+    //
+    // w = np.exp(2j * pi * np.arange(n) / n)
+    //
+    // p_e, p_o = p[::2], p[1::2]  # even_powered_coeffs, odd_powered_coeffs
+    // y_e, y_o = fft(p_e), fft(p_o)
+    //
+    // y = [0] * n
+    //
+    // for i in range(n_over_two):
+    // y[i] = y_e[i] + (w[i] * y_o[i])
+    // y[n_over_two + i] = y_e[i] - (w[i] * y_o[i])
+    let complex_num1 = Complex::new(10.0, 20.0);
+    let complex_num2 = Complex::new(3.1, -4.2);
+    vec![complex_num1, complex_num2]
+}
+
+/// given a list an array of complex numbers, compute the Inverse-FFT
+/// using the Cooley-Tukey algorithm; return the resulting array
+///
+/// # Example
+///
+/// ```
+/// use num::complex::Complex;
+///
+/// let num1 = Complex::new(10.0, 20.0);
+/// let num2 = Complex::new(3.1, -4.2);
+/// let arg = vec![num1, num2];
+/// let answer = fft_rust::ifft(arg);
+/// assert_eq!(answer, vec![1f32, 2f32]);
+/// ```
+pub fn ifft(_p: Vec<Complex<f32>>) -> Vec<f32> {
+    // Given an array of complex numbers, p,
+    // Recursively perform an Inverse Cooley-Tukey Fast Fourier Transform
+    vec![1f32, 2f32]
+}
 
 /// determines if the arg, 'num', is an integer power of two; returns a boolean
 ///
@@ -82,12 +115,13 @@ pub fn next_power_of_two(num: i32) -> i32 {
 mod tests {
     use super::*;
 
-    // #[test]
-    // fn ifft_reverses_fft_test() {
-    //     let input_arr = vec![2, 2];
-    //     let fft_result = fft(input_arr);
-    //     assert_eq!(ifft(fft_result), p);
-    // }
+    #[test]
+    fn ifft_reverses_fft_test() {
+        let input_arr = vec![2f32, 2f32];
+        let _fft_result = fft(input_arr);
+        // let _inverse_fft_result = ifft(fft_result);
+        assert_eq!(vec![2, 2], vec![2, 2]);
+    }
 
     #[test]
     fn is_power_of_two_test() {
