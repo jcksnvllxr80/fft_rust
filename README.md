@@ -12,7 +12,7 @@ need to have rust installed
 
 ## getting started
 
-clone this repo and read the documentation 
+clone this repo and read the documentation
 
 ## documentation
 
