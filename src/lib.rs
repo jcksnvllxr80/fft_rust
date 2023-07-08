@@ -347,6 +347,47 @@ pub fn next_power_of_two(num: usize) -> usize {
     2_f32.powf((num as f32).log2().ceil()) as usize
 }
 
+/// given an array of floats, return an array of floats wrapped in Complex
+///
+/// # Example
+///
+/// ```
+/// use num::complex::Complex;
+///
+/// let int_list = vec![0., 1., 2., 3., 4., 5., 6.];
+/// let answer = fft_rust::float_array_to_complex(int_list);
+/// assert_eq!(answer, [
+///     Complex::new(0f64, 0f64), Complex::new(1f64, 0f64),
+///     Complex::new(2f64, 0f64), Complex::new(3f64, 0f64),
+///     Complex::new(4f64, 0f64), Complex::new(5f64, 0f64),
+///     Complex::new(6f64, 0f64)
+/// ]);
+/// ```
+pub fn float_array_to_complex(input_array :Vec<f64>) -> Vec<Complex<f64>> {
+    input_array.iter().map(|x| {
+        Complex::new(*x, 0f64)
+    }).collect()
+}
+
+/// given an array of Complex numbers, return an array of floats wrapped
+///
+/// # Example
+///
+/// ```
+/// use num::complex::Complex;
+///
+/// let complex_list = &mut vec![
+///     Complex::new(0f64, 0f64), Complex::new(1f64, 0f64),
+///     Complex::new(2f64, 0f64), Complex::new(3f64, 0f64),
+///     Complex::new(4f64, 0f64), Complex::new(5f64, 0f64),
+///     Complex::new(6f64, 0f64)
+/// ];
+/// assert_eq!(fft_rust::complex_array_to_float(complex_list), [0., 1., 2., 3., 4., 5., 6.]);
+/// ```
+pub fn complex_array_to_float(input_array :&mut Vec<Complex<f64>>) -> Vec<f64> {
+    input_array.iter().map(|x| x.re).collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -448,6 +489,25 @@ mod tests {
     }
 
     #[test]
+    fn end_to_end_test() {
+        let input_vec = vec![0., 1., 2., 3., 4., 5., 6.];
+        assert_eq!(
+            complex_array_to_float(
+                &mut approximate_complex(
+                    &mut ifft(
+                        &mut fft(
+                            &mut float_array_to_complex(
+                                input_vec
+                            )
+                        )
+                    )
+                )
+            ),
+            vec![0., 0., 1., 2., 3., 4., 5., 6.]
+        );
+    }
+
+    #[test]
     fn convolve_test() {
         let list_a = &mut vec![  // binary 0110 -> decimal 6
             Complex::new(0f64, 0f64), Complex::new(1f64, 0f64),
@@ -545,5 +605,15 @@ mod tests {
         assert_eq!(next_power_of_two(5), 8);
         assert_eq!(next_power_of_two(9), 16);
         assert_eq!(next_power_of_two(17), 32);
+    }
+
+    #[test]
+    fn float_array_to_complex_test() {
+        assert_eq!(float_array_to_complex(vec![0., 1., 2., 3., 4., 5., 6.]), [
+            Complex::new(0f64, 0f64), Complex::new(1f64, 0f64),
+            Complex::new(2f64, 0f64), Complex::new(3f64, 0f64),
+            Complex::new(4f64, 0f64), Complex::new(5f64, 0f64),
+            Complex::new(6f64, 0f64)
+        ]);
     }
 }
