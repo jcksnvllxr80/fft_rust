@@ -9,17 +9,27 @@ The reason for creating this is that I wanted to practice rust and get more fami
 ## prerequisites
 
 need to have rust installed
+```shell
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+```
 
 ## getting started
 
 clone this repo and read the documentation
 
+*OPTIONAL: using github codespace*
+- create a code space
+- install rust in that code space
+- start using cargo commands
+- "thats it and that's all."
+
 ## documentation
 
-run the following once you have cloned the repo
-```
+run the following once you have cloned the repo 
+```shell
 cargo doc --open
 ```
+NOTE: if you just installed rust, you may need to open a new shell for `cargo` to be recognized as a command
 
 ## future work / improvements
 
