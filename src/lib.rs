@@ -616,4 +616,17 @@ mod tests {
             Complex::new(6f64, 0f64)
         ]);
     }
+
+    #[test]
+    fn complex_array_to_float_test() {
+        assert_eq!(
+            complex_array_to_float(&mut vec![
+                Complex::new(0f64, 0f64), Complex::new(1f64, 0f64),
+                Complex::new(2f64, 0f64), Complex::new(3f64, 0f64),
+                Complex::new(4f64, 0f64), Complex::new(5f64, 0f64),
+                Complex::new(6f64, 0f64)
+            ]),
+            vec![0., 1., 2., 3., 4., 5., 6.]
+        );
+    }
 }
