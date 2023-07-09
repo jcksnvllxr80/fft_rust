@@ -3,7 +3,7 @@
 //! A library for the Cooley-Tukey Fast Fourier Transform (fft) algorithm.
 
 use std::f64::consts::PI;
-use num::complex::Complex;
+use num::complex::{Complex, ComplexFloat};
 
 /// given a list of a polynomial's coefficients (or any array of numbers),
 /// compute the FFT using the Cooley-Tukey algorithm; return the resulting array
@@ -354,8 +354,8 @@ pub fn next_power_of_two(num: usize) -> usize {
 /// ```
 /// use num::complex::Complex;
 ///
-/// let int_list = vec![0., 1., 2., 3., 4., 5., 6.];
-/// let answer = fft_rust::float_array_to_complex(int_list);
+/// let float_list = vec![0., 1., 2., 3., 4., 5., 6.];
+/// let answer = fft_rust::float_array_to_complex(float_list);
 /// assert_eq!(answer, [
 ///     Complex::new(0f64, 0f64), Complex::new(1f64, 0f64),
 ///     Complex::new(2f64, 0f64), Complex::new(3f64, 0f64),
@@ -385,7 +385,7 @@ pub fn float_array_to_complex(input_array :Vec<f64>) -> Vec<Complex<f64>> {
 /// assert_eq!(fft_rust::complex_array_to_float(complex_list), [0., 1., 2., 3., 4., 5., 6.]);
 /// ```
 pub fn complex_array_to_float(input_array :&mut Vec<Complex<f64>>) -> Vec<f64> {
-    input_array.iter().map(|x| x.re).collect()
+    input_array.iter().map(|x| x.abs()).collect()
 }
 
 #[cfg(test)]

@@ -2,6 +2,9 @@
 
 implemented cooley-tukey fft and ifft in Rust with documentation, tests, and examples galore.
 
+`example`  
+![signal deconstruction with FFT](plotters-doc-data/fft.png)
+
 ## purpose
 
 The reason for creating this is that I wanted to practice rust and get more familiar with the fft algorithm.
@@ -32,7 +35,7 @@ cargo doc --open
 NOTE: if you just installed rust, you may need to open a new shell for `cargo` to be recognized as a command
 
 ## future work / improvements
-
+https://docs.rs/plotters/latest/plotters/https://docs.rs/plotters/latest/plotters/√◊
 - add parallelism with threads to speed up the algorithm
 - pull out the redundant and costly weight (omega) operations that are based on N outside the recursion  
   since they only need to be calculated once for each N
@@ -40,3 +43,9 @@ NOTE: if you just installed rust, you may need to open a new shell for `cargo` t
 - use the lib by creating a convolution reverb; try it out on some audio files
   - drum hits
   - voice recordings
+
+## binary example crate
+
+[article](https://www.mathworks.com/help/matlab/ref/fft.html) on how to plot the FFT  
+[the source on github](https://github.com/plotters-rs/plotters) and 
+[rust docs](https://docs.rs/plotters/latest/plotters/) for plotting in rust
