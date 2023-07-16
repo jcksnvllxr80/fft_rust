@@ -39,6 +39,13 @@ cargo doc --open
 ```
 NOTE: if you just installed rust, you may need to open a new shell for `cargo` to be recognized as a command
 
+## running examples
+
+to run the examples, just call use the following command with the name of the example file
+```shell
+cargo run --example <example_name>
+```
+
 ## future work / improvements
 https://docs.rs/plotters/latest/plotters/https://docs.rs/plotters/latest/plotters/√◊
 - add parallelism with threads to speed up the algorithm
