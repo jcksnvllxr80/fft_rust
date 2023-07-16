@@ -1,6 +1,8 @@
 use std::f32::consts::PI;
 use plotters::prelude::*;
 use plotters::style::full_palette::{GREEN_900, PURPLE};
+use fft_rust;
+
 
 const OUT_FILE_NAME: &'static str = "plotters-doc-data/fft.png";
 fn main() -> Result<(), Box<dyn std::error::Error>> {

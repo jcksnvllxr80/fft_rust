@@ -2,8 +2,13 @@
 
 implemented cooley-tukey fft and ifft in Rust with documentation, tests, and examples galore.
 
-`example`  
+## examples
+
+`output to file`  
 ![signal deconstruction with FFT](plotters-doc-data/fft.png)
+
+`interactive window`  
+![interactive FFT](plotters-doc-data/interactive_transform.png)
 
 ## purpose
 
