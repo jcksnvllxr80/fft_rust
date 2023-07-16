@@ -17,15 +17,25 @@ fn build_plot_widget() -> impl Widget<State> {
         let fq_1 = data.fq_1 as f32;
 
         // let res = 400;
-        let font1 = FontDesc::new(FontFamily::SansSerif, 16., FontStyle::Normal);
-        let font2 = FontDesc::new(FontFamily::SansSerif, 16., FontStyle::Normal);
+        let font1 = FontDesc::new(
+            FontFamily::SansSerif,
+            16.,
+            FontStyle::Normal
+        );
+        let font2 = FontDesc::new(
+            FontFamily::SansSerif,
+            16.,
+            FontStyle::Normal
+        );
 
         let root = root.titled(
             "Time to Frequency Domain with FFT", ("sans-serif", 60)
         ).unwrap();
         let child_drawing_areas = root.split_evenly((2, 1));
 
-        let mut time_chart = ChartBuilder::on(&child_drawing_areas[0])
+        let mut time_chart = ChartBuilder::on(
+            &child_drawing_areas[0]
+        )
             .x_label_area_size(30)
             .y_label_area_size(30)
             .margin_right(10)
@@ -40,7 +50,9 @@ fn build_plot_widget() -> impl Widget<State> {
             .draw()
             .unwrap();
 
-        let mut freq_chart = ChartBuilder::on(&child_drawing_areas[1])
+        let mut freq_chart = ChartBuilder::on(
+            &child_drawing_areas[1]
+        )
             .x_label_area_size(30)
             .y_label_area_size(30)
             .margin_right(10)
@@ -61,8 +73,12 @@ fn build_plot_widget() -> impl Widget<State> {
         let t : Vec<f32> = (0..(length-1)).map(|x| (x as f32)*period).collect();  // Time vector
         let amp_1 = 1.0;
 
-        let y_sig : Vec<_> = t.iter().map(|x| amp_1*(2.0*PI*fq_1*x).sin() as f64).collect();
-        let signal = t.iter().map(|t| *t).zip(y_sig.iter().map(|y| *y as f32));
+        let y_sig : Vec<_> = t.iter().map(
+            |x| amp_1*(2.0*PI*fq_1*x).sin() as f64
+        ).collect();
+        let signal = t.iter().map(
+            |t| *t
+        ).zip(y_sig.iter().map(|y| *y as f32));
         // let signal1: Vec<f32>  = t.iter().map(|x| amp_1*(2.0*PI*fq_1*x).sin()).collect();
         // let signal2: Vec<f32>  = t.iter().map(|x| amp_2*(2.0*PI*fq_2*x).sin()).collect();
 
@@ -98,12 +114,22 @@ fn build_plot_widget() -> impl Widget<State> {
         let y_fft_real_scale: Vec<_> = y_fft_real.iter().map(
             |x| *x/(length as f64)
         ).collect();
-        let p1_temp: Vec<f64> = y_fft_real_scale[..=(length/2 + 1)].iter().map(|x| *x).collect();
+        let p1_temp: Vec<f64> = y_fft_real_scale[..=(length/2 + 1)].iter().map(
+            |x| *x
+        ).collect();
         let p1: Vec<f64>  = p1_temp[..].iter().enumerate().map(
             |(i, p)| if i == 0 {*p} else if i == p1_temp.len() - 1 {*p} else {2.0*p}
         ).collect();
-        let f: Vec<f32> = (0..(length/2)).map(|i| (i as f32)*(fs as f32)/(length as f32)).collect();
-        let fft = f.iter().map(|f| *f).zip(p1.iter().map(|p| *p as f32));
+        let f: Vec<f32> = (0..(length/2)).map(
+            |i| (i as f32)*(fs as f32)/(length as f32)
+        ).collect();
+        let fft = f.iter().map(
+            |f| *f
+        ).zip(
+            p1.iter().map(
+                |p| *p as f32
+            )
+        );
 
         freq_chart
             .draw_series(LineSeries::new(fft, &color2))
@@ -144,7 +170,10 @@ fn build_root_widget() -> impl Widget<State> {
     Flex::column()
         .with_flex_child(build_plot_widget(), 1.)
         .with_spacer(5.)
-        .with_child(build_slider_widget("freq_1".to_string(), 0., 500.).lens(State::fq_1))
+        .with_child(build_slider_widget(
+            "freq_1".to_string(),
+            0., 500.
+        ).lens(State::fq_1))
         .padding(10.)
 }
 
