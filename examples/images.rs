@@ -25,5 +25,5 @@ fn component_to_grey(out_file_name: String, img_bytes: Vec<&u8>, img_dim: (u32, 
             component_img.put_pixel(x, y, image::Luma([*img_bytes[(y*img_dim.0 + x) as usize]]));
         }
     }
-    component_img.save(format!("img/{out_file_name}.jpg")).unwrap();
+    component_img.save(format!("img/output/{out_file_name}.jpg")).unwrap();
 }
