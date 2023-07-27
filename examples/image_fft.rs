@@ -12,19 +12,22 @@ fn main() {
     // gray_img.save(format!("img/output/gray_img.jpg")).unwrap();
 
     let fft_img = &mut fft_2d(gray_img);
+    let fft_img_clone= fft_img.clone();
     let fft_img_shift = &mut fft_shift(
         fft_img,
         "fft_img_shift",
         width,
         height
     );
-    let fft_reverse_img_shift = fft_shift(
+    let _fft_reverse_img_shift = fft_shift(
         fft_img_shift,
         "fft_reverse_img_shift",
         width,
         height
     );
-    let _ifft_img = &mut ifft_2d(fft_reverse_img_shift, width, height);
+    // let _ifft_img = &mut ifft_2d(fft_reverse_img_shift, width, height);
+    let _ifft_img = &mut ifft_2d(fft_img_clone, width, height);
+
 
     let duration = start.elapsed();
     println!("Time elapsed to do 2-D fft and shift of image is: {:?}", duration);
